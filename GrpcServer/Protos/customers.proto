@@ -4,7 +4,10 @@ option csharp_namespace = "GrpcServer";
 
 service Customer {
 	rpc GetCustomerInfo (CustomerLookupModel) returns (CustomerModel);
+	rpc GetNewCustomers (NewCustomerRequest) returns (stream CustomerModel);
 }
+
+message NewCustomerRequest {}
 
 message CustomerLookupModel {
 	int32 userId = 1; // int alone is not allowed or not working

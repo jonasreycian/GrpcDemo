@@ -32,5 +32,43 @@ namespace GrpcServer.Services
 
             return Task.FromResult(model);
         }
+
+        public override async Task GetNewCustomers(NewCustomerRequest request, IServerStreamWriter<CustomerModel> responseStream, ServerCallContext context)
+        {
+            var customerModels = new List<CustomerModel>
+            {
+                new CustomerModel
+                {
+                    FirstName = "Sue",
+                    LastName = "Storm",
+                    EmailAddress = ""
+                },
+                new CustomerModel
+                {
+                    FirstName = "Reed",
+                    LastName = "Richards",
+                    EmailAddress = ""
+                },
+                new CustomerModel
+                {
+                    FirstName = "Ben",
+                    LastName = "Grimm",
+                    EmailAddress = ""
+                },
+                new CustomerModel
+                {
+                    FirstName = "Johnny",
+                    LastName = "Storm",
+                    EmailAddress = ""
+                }
+            };
+
+            foreach (var customerModel in customerModels)
+            {
+                await Task.Delay(3000);
+                await responseStream.WriteAsync(customerModel);
+            }
+
+        }
     }
 }
